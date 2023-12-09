@@ -1,0 +1,20 @@
+package main
+
+import (
+	"log/slog"
+	"os"
+)
+
+var logger *slog.Logger
+
+func LoggerInit() {
+	logFile, err := os.OpenFile("server.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0777)
+	if err != nil {
+		panic("cannot open log file")
+	}
+
+	//TODO: close logFile when server is closed
+
+	logger = slog.New(slog.NewJSONHandler(logFile, nil))
+
+}

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 
@@ -41,9 +40,9 @@ func setServer() *http.Server {
 func ServerInit() {
 	server := setServer()
 
-	log.Println("server is starting on listen port :", port)
+	logger.Info("server is starting on", "port", port)
 	err := server.ListenAndServe()
 	if err != nil {
-		log.Fatal(err)
+		logger.Error("error starting server", "error", err)
 	}
 }
