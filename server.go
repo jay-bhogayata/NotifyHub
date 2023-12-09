@@ -20,12 +20,7 @@ func setServer() *http.Server {
 	apiRouter := chi.NewRouter()
 	r.Mount("/api/v1", apiRouter)
 
-	apiRouter.Get("/health", func(w http.ResponseWriter, r *http.Request) {
-
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("working...\n"))
-
-	})
+	apiRouter.Get("/health", healthCheck)
 
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%v", port),
