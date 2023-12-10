@@ -3,7 +3,8 @@ package main
 type config struct {
 	port string
 
-	sender_mail string
+	sender_mail   string
+	sns_topic_arn string
 }
 
 type application struct {

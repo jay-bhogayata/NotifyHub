@@ -61,3 +61,45 @@ func (app *application) sendMail(w http.ResponseWriter, r *http.Request) {
 		serverErrorResponse(w, r, err)
 	}
 }
+
+func (app *application) sendSMS(w http.ResponseWriter, r *http.Request) {
+
+	var input struct {
+		Recipient string `json:"recipient" validate:"required,e164"`
+		Message   string `json:"message" validate:"required"`
+	}
+
+	err := readJSON(w, r, &input)
+	if err != nil {
+		badRequestResponse(w, r, err)
+		return
+	}
+
+	validator := validator.New()
+
+	err = validator.Struct(input)
+	if err != nil {
+		badRequestResponse(w, r, err)
+		return
+	}
+
+	recipient := input.Recipient
+	message := input.Message
+
+	err = app.sendSms(recipient, message)
+
+	if err != nil {
+		badRequestResponse(w, r, err)
+		return
+	}
+
+	data := envelope{
+		"success": true,
+		"message": "sms send successfully",
+	}
+
+	err = writeJSON(w, http.StatusOK, data, nil)
+	if err != nil {
+		serverErrorResponse(w, r, err)
+	}
+}

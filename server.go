@@ -20,6 +20,7 @@ func (app *application) setServer() *http.Server {
 
 	apiRouter.Get("/health", app.healthCheck)
 	apiRouter.Post("/sendmail", app.sendMail)
+	apiRouter.Post("/sendsms", app.sendSMS)
 
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%v", app.config.port),
