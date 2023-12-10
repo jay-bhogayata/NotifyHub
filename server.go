@@ -9,9 +9,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-var port int = 8080
-
-func setServer() *http.Server {
+func (app *application) setServer() *http.Server {
 
 	r := chi.NewRouter()
 
@@ -20,10 +18,11 @@ func setServer() *http.Server {
 	apiRouter := chi.NewRouter()
 	r.Mount("/api/v1", apiRouter)
 
-	apiRouter.Get("/health", healthCheck)
+	apiRouter.Get("/health", app.healthCheck)
+	apiRouter.Post("/sendmail", app.sendMail)
 
 	server := &http.Server{
-		Addr:         fmt.Sprintf(":%v", port),
+		Addr:         fmt.Sprintf(":%v", app.config.port),
 		Handler:      r,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 5 * time.Second,
@@ -32,10 +31,10 @@ func setServer() *http.Server {
 	return server
 }
 
-func ServerInit() {
-	server := setServer()
+func (app *application) ServerInit() {
+	server := app.setServer()
 
-	logger.Info("server is starting on", "port", port)
+	logger.Info("server is starting on", "port", app.config.port)
 	err := server.ListenAndServe()
 	if err != nil {
 		logger.Error("error starting server", "error", err)
