@@ -24,6 +24,7 @@ var totalNumberIWant int32 = 50
 func (app *application) sendSms(recipient string, message string) error {
 
 	cfg, err := awsconfig.LoadDefaultConfig(context.TODO())
+
 	if err != nil {
 		log.Fatal(err.Error())
 

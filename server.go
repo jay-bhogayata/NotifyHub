@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -23,10 +22,10 @@ func (app *application) setServer() *http.Server {
 	apiRouter.Post("/sendsms", app.sendSMS)
 
 	server := &http.Server{
-		Addr:         fmt.Sprintf(":%v", app.config.port),
-		Handler:      r,
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 5 * time.Second,
+		Addr:    fmt.Sprintf(":%v", app.config.port),
+		Handler: r,
+		// ReadTimeout:  5 * time.Second,
+		// WriteTimeout: 5 * time.Second,
 	}
 
 	return server

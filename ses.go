@@ -16,8 +16,10 @@ func (app *application) sendEmail(dest string, subject string, body string) erro
 	destinations = append(destinations, dest)
 
 	cfg, err := awsconfig.LoadDefaultConfig(context.TODO())
+
 	if err != nil {
 		log.Fatal(err.Error())
+
 	}
 
 	service := ses.NewFromConfig(cfg)
