@@ -1,3 +1,5 @@
+[![ci workflow](https://github.com/jay-bhogayata/NotifyHub/actions/workflows/ci.yaml/badge.svg)](https://github.com/jay-bhogayata/NotifyHub/actions/workflows/ci.yaml)
+
 # NotifyHub
 
 NotifyHub is a robust notification service built with Go. It provides a simple way to send SMS and email notifications to users, leveraging the power of AWS services.
