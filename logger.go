@@ -13,8 +13,7 @@ func (app *application) LoggerInit() {
 		panic("cannot open log file")
 	}
 
-	//TODO: close logFile when server is closed
+	app.logFile = logFile
 
 	logger = slog.New(slog.NewJSONHandler(logFile, nil))
-
 }

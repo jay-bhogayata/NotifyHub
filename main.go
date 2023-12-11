@@ -1,5 +1,7 @@
 package main
 
+import "os"
+
 type config struct {
 	port string
 
@@ -8,7 +10,8 @@ type config struct {
 }
 
 type application struct {
-	config config
+	config  config
+	logFile *os.File
 }
 
 func main() {

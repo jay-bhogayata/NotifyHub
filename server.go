@@ -54,6 +54,10 @@ func (app *application) ServerInit() {
 
 	<-shutdown
 
+	if app.logFile != nil {
+		app.logFile.Close()
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
