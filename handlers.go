@@ -10,7 +10,7 @@ var validate *validator.Validate
 
 func (app *application) healthCheck(w http.ResponseWriter, r *http.Request) {
 
-	res := envelope{"status": "ok"}
+	res := envelope{"status": "ok..."}
 
 	err := writeJSON(w, http.StatusOK, res, nil)
 	if err != nil {
