@@ -57,7 +57,7 @@ jobs:
         run: |
           git clone https://jay-bhogayata:${{ secrets.PAT }}@github.com/jay-bhogayata/deployment-stuff.git
           cd deployment-stuff
-          git remote set origin https://jay-bhogayata:${{ secrets.PAT }}@github.com/jay-bhogayata/deployment-stuff.git        
+          git remote set-url origin https://jay-bhogayata:${{ secrets.PAT }}@github.com/jay-bhogayata/deployment-stuff.git        
           sed -i "s|image: asia-south1-docker.pkg.dev/mymicroserviceproj/mycontainersstore/notifyhub:.*|image: asia-south1-docker.pkg.dev/mymicroserviceproj/mycontainersstore/notifyhub:${{ env.TAG }}|g" notifyhub/deployment.yaml
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
