@@ -5,7 +5,7 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o notification-api .
 
-FROM alpine:3.14.2
+FROM gcr.io/distroless/static-debian12
 WORKDIR /
 COPY --from=builder /app/notification-api notification-api
 EXPOSE 8080

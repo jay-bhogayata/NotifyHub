@@ -10,15 +10,12 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 )
 
 func (app *application) setServer() *http.Server {
 
 	r := chi.NewRouter()
-
-	r.Use(middleware.Logger)
-
+	r.Use(Logging)
 	apiRouter := chi.NewRouter()
 	r.Mount("/api/v1", apiRouter)
 
@@ -53,10 +50,6 @@ func (app *application) ServerInit() {
 	}()
 
 	<-shutdown
-
-	if app.logFile != nil {
-		app.logFile.Close()
-	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
