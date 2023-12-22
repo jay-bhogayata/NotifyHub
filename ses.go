@@ -44,7 +44,7 @@ func (app *application) sendEmail(dest string, subject string, body string) erro
 
 	_, err = service.SendEmail(context.Background(), input)
 	if err != nil {
-		return err
+		logger.Error("could not send email", "error", err)
 	}
 
 	return nil
