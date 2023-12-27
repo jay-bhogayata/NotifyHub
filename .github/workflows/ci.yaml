@@ -43,15 +43,20 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v1'
           
       - name: 'Use gcloud CLI'
-        run: 'gcloud info'
-      
+        run: |
+          'gcloud info'
+          'gcloud auth configure-docker asia-south1-docker.pkg.dev'
+
       - name: "build and push"
+        uses: docker/build-push-action@v5
         env:
           GOOGLE_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-        run: |
-          gcloud auth configure-docker asia-south1-docker.pkg.dev
-          docker build -t ${{ env.GAR_REPO }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} .
-          docker push ${{ env.GAR_REPO }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+        with:
+          context: .
+          push: true
+          tags: ${{ env.GAR_REPO }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+          cache-from: type=registry,ref=${{ env.GAR_REPO }}/${{ env.IMAGE_NAME }}:latest
+          cache-to: type=registry,ref=${{ env.GAR_REPO }}/${{ env.IMAGE_NAME }}:latest,mode=max
       
       - name: Update Kubernetes manifests
         run: |
