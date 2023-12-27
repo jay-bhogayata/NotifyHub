@@ -12,7 +12,7 @@ type application struct {
 }
 
 //	@title			NotifyHub API
-//	@version		1.0
+//	@version		1.0.0
 //	@description	This is a api for sending emails and sms using different providers.
 
 //	@contact.name	Jay Bhogayata
