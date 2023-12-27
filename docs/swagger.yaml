@@ -1,0 +1,36 @@
+basePath: /api/v1
+definitions:
+  main.response:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact:
+    email: jaybhogayata53@gmail.com
+    name: Jay Bhogayata
+    url: https://github.com/jay-bhogayata/
+  description: This is a api for sending emails and sms using different providers.
+  title: NotifyHub API
+  version: "1.0"
+paths:
+  /health:
+    get:
+      description: This endpoint is used to check the health of the service
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.response'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Health Check
+      tags:
+      - Health
+swagger: "2.0"

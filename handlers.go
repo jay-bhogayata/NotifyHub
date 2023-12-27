@@ -8,6 +8,19 @@ import (
 
 var validate *validator.Validate
 
+type response struct {
+	Message string `json:"message"`
+}
+
+// @Summary      Health Check
+// @Description  This endpoint is used to check the health of the service
+// @Tags         Health
+// @Produce      json
+// @Success      200 {object} response
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /health [get]
 func (app *application) healthCheck(w http.ResponseWriter, r *http.Request) {
 
 	res := envelope{"status": "ok"}

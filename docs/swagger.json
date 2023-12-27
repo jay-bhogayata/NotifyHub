@@ -1,0 +1,55 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a api for sending emails and sms using different providers.",
+        "title": "NotifyHub API",
+        "contact": {
+            "name": "Jay Bhogayata",
+            "url": "https://github.com/jay-bhogayata/",
+            "email": "jaybhogayata53@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/api/v1",
+    "paths": {
+        "/health": {
+            "get": {
+                "description": "This endpoint is used to check the health of the service",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Health"
+                ],
+                "summary": "Health Check",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.response": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

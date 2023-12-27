@@ -9,15 +9,27 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
+	_ "github.com/jay-bhogayata/notifyHub/docs"
+	httpSwagger "github.com/swaggo/http-swagger/v2"
 )
 
 func (app *application) setServer() *http.Server {
 
 	r := chi.NewRouter()
+
 	r.Use(Logging)
+	r.Use(middleware.SetHeader("Access-Control-Allow-Origin", "*"))
+	r.Use(middleware.SetHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"))
+	r.Use(middleware.SetHeader("Access-Control-Allow-Headers", "Content-Type"))
+
 	apiRouter := chi.NewRouter()
 	r.Mount("/api/v1", apiRouter)
+
+	r.Get("/swagger/*", httpSwagger.Handler(
+		httpSwagger.URL("http://localhost:8080/swagger/doc.json"),
+	))
 
 	apiRouter.Get("/health", app.healthCheck)
 	apiRouter.Post("/sendmail", app.sendMail)
