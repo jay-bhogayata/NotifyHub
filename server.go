@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
 	_ "github.com/jay-bhogayata/notifyHub/docs"
 	httpSwagger "github.com/swaggo/http-swagger/v2"
 )
@@ -20,9 +20,14 @@ func (app *application) setServer() *http.Server {
 	r := chi.NewRouter()
 
 	r.Use(Logging)
-	r.Use(middleware.SetHeader("Access-Control-Allow-Origin", "*"))
-	r.Use(middleware.SetHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"))
-	r.Use(middleware.SetHeader("Access-Control-Allow-Headers", "Content-Type"))
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"https://*", "http://*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: false,
+		MaxAge:           300,
+	}))
 
 	apiRouter := chi.NewRouter()
 	r.Mount("/api/v1", apiRouter)
