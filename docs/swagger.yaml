@@ -1,9 +1,32 @@
 basePath: /api/v1
 definitions:
+  main.mail_input:
+    properties:
+      body:
+        type: string
+      destinationEmail:
+        type: string
+      subject:
+        type: string
+    required:
+    - body
+    - destinationEmail
+    - subject
+    type: object
   main.response:
     properties:
       message:
         type: string
+    type: object
+  main.sms_input:
+    properties:
+      message:
+        type: string
+      recipient:
+        type: string
+    required:
+    - message
+    - recipient
     type: object
 info:
   contact:
@@ -12,7 +35,7 @@ info:
     url: https://github.com/jay-bhogayata/
   description: This is a api for sending emails and sms using different providers.
   title: NotifyHub API
-  version: "1.0"
+  version: 1.0.0
 paths:
   /health:
     get:
@@ -31,6 +54,56 @@ paths:
         "500":
           description: Internal Server Error
       summary: Health Check
-      tags:
-      - Health
+  /sendmail:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint is used to send email
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.mail_input'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.response'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Send Email
+  /sendsms:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint is used to send sms
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.sms_input'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.response'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Send SMS
 swagger: "2.0"
