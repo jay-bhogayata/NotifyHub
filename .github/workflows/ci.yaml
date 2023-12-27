@@ -43,9 +43,10 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v1'
           
       - name: 'Use gcloud CLI'
-        run: |
-          'gcloud info'
-          'gcloud auth configure-docker asia-south1-docker.pkg.dev'
+        run: 'gcloud info'
+          
+      - name: 'Configure Docker'
+        run : 'gcloud auth configure-docker asia-south1-docker.pkg.dev'
 
       - name: "build and push"
         uses: docker/build-push-action@v5
