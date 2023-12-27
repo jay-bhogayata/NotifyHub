@@ -32,10 +32,12 @@ func (app *application) setServer() *http.Server {
 	apiRouter := chi.NewRouter()
 	r.Mount("/api/v1", apiRouter)
 
-	r.Get("/swagger/*", httpSwagger.Handler(
+	r.Get("/local-swagger/*", httpSwagger.Handler(
 		httpSwagger.URL("http://localhost:8080/swagger/doc.json"),
 	))
-
+	r.Get("/swagger/*", httpSwagger.Handler(
+		httpSwagger.URL("http://api.jaybhogayata.me/swagger/doc.json"),
+	))
 	apiRouter.Get("/health", app.healthCheck)
 	apiRouter.Post("/sendmail", app.sendMail)
 	apiRouter.Post("/sendsms", app.sendSMS)
