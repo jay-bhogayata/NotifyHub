@@ -40,14 +40,17 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       
       - id: "auth"
+        if : github.event_name == 'push' || github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         uses: google-github-actions/auth@v1
         with:
           credentials_json : ${{ secrets.GCP_SA_KEY }}            
           
       - name: 'Set up Cloud SDK'
+        if : github.event_name == 'push' || github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         uses: 'google-github-actions/setup-gcloud@v1'
           
       - name: 'Use gcloud CLI'
+        if : github.event_name == 'push' || github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         run: 'gcloud info'
       
       - name: "build and push"
