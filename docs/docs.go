@@ -14,6 +14,10 @@ const docTemplate = `{
             "url": "https://github.com/jay-bhogayata/",
             "email": "jaybhogayata53@gmail.com"
         },
+        "license": {
+            "name": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
