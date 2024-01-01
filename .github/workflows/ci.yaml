@@ -29,7 +29,7 @@ jobs:
         run: go get .
       
       - name: "Run go test"
-        run: go test -v ./...
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./... 
 
       - name: "Run Go Vet"
         run: go vet ./...
@@ -51,6 +51,7 @@ jobs:
         run: 'gcloud info'
       
       - name: "build and push"
+        if : github.event_name == 'push' || github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         env:
           GOOGLE_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         run: |
@@ -59,6 +60,7 @@ jobs:
           docker push ${{ env.GAR_REPO }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
       
       - name: Update Kubernetes manifests
+        if : github.event_name == 'push' || github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         run: |
           git clone https://jay-bhogayata:${{ secrets.PAT }}@github.com/jay-bhogayata/deployment-stuff.git
           cd deployment-stuff
