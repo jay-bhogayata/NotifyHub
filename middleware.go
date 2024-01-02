@@ -25,7 +25,10 @@ func (w *statusTrackingResponseWriter) Write(data []byte) (int, error) {
 
 func Logging(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
+		if r.URL.Path == "/api/v1/health" {
+			next.ServeHTTP(w, r)
+			return
+		}
 		startTime := time.Now()
 
 		sw := &statusTrackingResponseWriter{ResponseWriter: w, statusCode: http.StatusOK}
