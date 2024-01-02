@@ -3,7 +3,7 @@ package main
 type config struct {
 	port string
 
-	sender_mail string
+	sender_email string
 }
 
 type application struct {

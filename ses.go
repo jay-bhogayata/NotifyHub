@@ -39,7 +39,7 @@ func (app *application) sendEmail(dest string, subject string, body string) erro
 				Data: &subject,
 			},
 		},
-		Source: &app.config.sender_mail,
+		Source: &app.config.sender_email,
 	}
 
 	_, err = service.SendEmail(context.Background(), input)
