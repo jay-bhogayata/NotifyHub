@@ -2,9 +2,7 @@ package main
 
 import (
 	"context"
-	"log"
 
-	awsconfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/ses"
 	"github.com/aws/aws-sdk-go-v2/service/ses/types"
 )
@@ -15,18 +13,11 @@ func (app *application) sendEmail(dest string, subject string, body string) erro
 
 	destinations = append(destinations, dest)
 
-	cfg, err := awsconfig.LoadDefaultConfig(context.TODO())
-
-	if err != nil {
-		log.Fatal(err.Error())
-
-	}
-
-	service := ses.NewFromConfig(cfg)
+	service := ses.NewFromConfig(app.config.awsConfig)
 	input := &ses.SendEmailInput{
 		Destination: &types.Destination{
 			ToAddresses: []string{
-				dest,
+				destinations[0],
 			},
 		},
 		Message: &types.Message{
@@ -42,7 +33,7 @@ func (app *application) sendEmail(dest string, subject string, body string) erro
 		Source: &app.config.sender_email,
 	}
 
-	_, err = service.SendEmail(context.Background(), input)
+	_, err := service.SendEmail(context.Background(), input)
 	if err != nil {
 		logger.Error("could not send email", "error", err)
 	}

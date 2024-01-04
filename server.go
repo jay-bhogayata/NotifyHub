@@ -60,6 +60,7 @@ func (app *application) ServerInit() {
 
 	go func() {
 		logger.Info("server is starting on", "port", app.config.port)
+		logger.Info("server is running in ", "environment", app.config.env)
 		err := server.ListenAndServe()
 		if err != nil && err != http.ErrServerClosed {
 			logger.Error("could not listen on", "port", app.config.port, "error", err)

@@ -1,9 +1,12 @@
 package main
 
-type config struct {
-	port string
+import "github.com/aws/aws-sdk-go-v2/aws"
 
+type config struct {
+	port         string
+	env          string
 	sender_email string
+	awsConfig    aws.Config
 }
 
 type application struct {
@@ -31,5 +34,6 @@ func main() {
 
 	app.LoggerInit()
 	app.config.LoadConfig()
+	app.config.ConfigAws()
 	app.ServerInit()
 }

@@ -2,4 +2,6 @@ server.log
 var.sh
 .env
 coverage.out
-    
+main
+main.exe
+notifyhub
