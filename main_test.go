@@ -42,6 +42,9 @@ func TestLoadConfig(t *testing.T) {
 	os.Setenv("SENDER_EMAIL", "test@example.com")
 	defer os.Unsetenv("SENDER_EMAIL")
 
+	os.Setenv("ENV", "test")
+	defer os.Unsetenv("ENV")
+
 	app.LoggerInit()
 	cfg.LoadConfig()
 
@@ -52,6 +55,11 @@ func TestLoadConfig(t *testing.T) {
 	if cfg.sender_email != "test@example.com" {
 		t.Errorf("want %s get %s", "test@example.com", cfg.sender_email)
 	}
+
+	if cfg.env != "test" {
+		t.Errorf("want %s get %s", "test", cfg.env)
+	}
+
 }
 
 func TestLoadConfigMissingEnv(t *testing.T) {
