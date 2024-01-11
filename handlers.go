@@ -129,8 +129,8 @@ func (app *application) sendSMS(w http.ResponseWriter, r *http.Request) {
 	recipient := input.Recipient
 	message := input.Message
 
-	err = app.sendSms(recipient, message)
-
+	// err = app.sendSms(recipient, message)
+	err = app.config.SendSMSUsingTwilio(message, recipient)
 	if err != nil {
 		badRequestResponse(w, r, err)
 		return

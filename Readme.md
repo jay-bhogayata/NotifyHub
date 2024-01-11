@@ -1,5 +1,4 @@
 [![ci workflow](https://github.com/jay-bhogayata/NotifyHub/actions/workflows/ci.yaml/badge.svg)](https://github.com/jay-bhogayata/NotifyHub/actions/workflows/ci.yaml)
-[![codecov](https://codecov.io/gh/jay-bhogayata/NotifyHub/graph/badge.svg?token=WWTLZYU4JX)](https://codecov.io/gh/jay-bhogayata/NotifyHub)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jay-bhogayata/notifyHub)](https://goreportcard.com/report/github.com/jay-bhogayata/notifyHub)
 
 # NotifyHub

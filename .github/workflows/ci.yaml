@@ -33,11 +33,6 @@ jobs:
 
       - name: "Run Go Vet"
         run: go vet ./...
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       
       - id: "auth"
         if : github.event_name == 'push' || github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true

@@ -3,10 +3,13 @@ package main
 import "github.com/aws/aws-sdk-go-v2/aws"
 
 type config struct {
-	port         string
-	env          string
-	sender_email string
-	awsConfig    aws.Config
+	port            string
+	env             string
+	sender_email    string
+	tw_acc_sid      string
+	tw_auth_token   string
+	tw_phone_number string
+	awsConfig       aws.Config
 }
 
 type application struct {
