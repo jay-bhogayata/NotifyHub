@@ -45,6 +45,15 @@ func TestLoadConfig(t *testing.T) {
 	os.Setenv("ENV", "test")
 	defer os.Unsetenv("ENV")
 
+	os.Setenv("TW_ACC_SID", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+	defer os.Unsetenv("TW_ACC_SID")
+
+	os.Setenv("TW_AUTH_TOKEN", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+	defer os.Unsetenv("TW_AUTH_TOKEN")
+
+	os.Setenv("TW_PHONE_NUMBER", "+15005550006")
+	defer os.Unsetenv("TW_PHONE_NUMBER")
+
 	app.LoggerInit()
 	cfg.LoadConfig()
 
@@ -60,6 +69,18 @@ func TestLoadConfig(t *testing.T) {
 		t.Errorf("want %s get %s", "test", cfg.env)
 	}
 
+	if cfg.tw_acc_sid != "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" {
+		t.Errorf("want %s get %s", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", cfg.tw_acc_sid)
+	}
+
+	if cfg.tw_auth_token != "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" {
+		t.Errorf("want %s get %s", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", cfg.tw_auth_token)
+	}
+
+	if cfg.tw_phone_number != "+15005550006" {
+		t.Errorf("want %s get %s", "+15005550006", cfg.tw_phone_number)
+	}
+
 }
 
 func TestLoadConfigMissingEnv(t *testing.T) {
@@ -67,6 +88,14 @@ func TestLoadConfigMissingEnv(t *testing.T) {
 	defer os.Setenv("PORT", "8080")
 	os.Unsetenv("SENDER_MAIL")
 	defer os.Setenv("SENDER_MAIL", "test@example.com")
+	os.Unsetenv("ENV")
+	defer os.Setenv("ENV", "test")
+	os.Unsetenv("TW_ACC_SID")
+	defer os.Setenv("TW_ACC_SID", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+	os.Unsetenv("TW_AUTH_TOKEN")
+	defer os.Setenv("TW_AUTH_TOKEN", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+	os.Unsetenv("TW_PHONE_NUMBER")
+	defer os.Setenv("TW_PHONE_NUMBER", "+15005550006")
 
 	defer func() {
 		if r := recover(); r == nil {
